@@ -1,2 +1,2 @@
-# kansuuji2num
+# kansuji2num
 文字列の中の漢数字をアラビア数字に変換する
