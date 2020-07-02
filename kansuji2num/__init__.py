@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 # 数字と判定する文字
 _DIGIT_WORDS = set(
@@ -29,7 +29,7 @@ def _kan2num_by10(text: str) -> int:
             block = int(text[ppos:pos].translate(_DIGIT_TRANS))
         ret += block * (10 ** (3 - i))
         ppos = pos + 1
-    if ppos == 0 or ppos < len(text):
+    if ppos < len(text):
         ret += int(text[ppos:].translate(_DIGIT_TRANS))
     return ret
 
@@ -46,7 +46,7 @@ def _kan2num(text: str) -> int:
             block = _kan2num_by10(text[ppos:pos])
         ret += block * (10 ** (4 * (4 - i)))
         ppos = pos + 1
-    if ppos == 0 or ppos < len(text):
+    if ppos < len(text):
         ret += _kan2num_by10(text[ppos:])
     return ret
 
