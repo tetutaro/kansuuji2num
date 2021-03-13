@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-import unittest
+from __future__ import annotations
+from unittest import TestCase, main
 from kansuji2num import kansuji2num
 
 
-class TestKansuji2num(unittest.TestCase):
-    def test_basic(self) -> None:
+class TestKansuji2num(TestCase):
+    def test_basic(self: TestKansuji2num) -> None:
         test_patterns = [
             ('一億二千三百四十五万六千七百八十九', '123456789'),
             ('１２３４５６７８９', '123456789'),
@@ -32,10 +33,10 @@ class TestKansuji2num(unittest.TestCase):
             ('一二三四五六七八九〇', '1234567890'),
         ]
         for tp in test_patterns:
-            self.assertEqual(kansuji2num(tp[0]), tp[1])
+            self.assertEqual(kansuji2num(text=tp[0]), tp[1])
         return
 
-    def test_taisu_nonum(self) -> None:
+    def test_taisu_nonum(self: TestKansuji2num) -> None:
         test_patterns = [
             ('万感の思い', '万感の思い'),
             ('ジョン万次郎', 'ジョン万次郎'),
@@ -47,10 +48,10 @@ class TestKansuji2num(unittest.TestCase):
             ('スパコン京', 'スパコン京'),
         ]
         for tp in test_patterns:
-            self.assertEqual(kansuji2num(tp[0]), tp[1])
+            self.assertEqual(kansuji2num(text=tp[0]), tp[1])
         return
 
-    def test_comma(self) -> None:
+    def test_comma(self: TestKansuji2num) -> None:
         test_patterns = [
             ('１２３，４５６，７８９', '123456789'),
             ('１２３,４５６,７８９', '123456789'),
@@ -61,10 +62,10 @@ class TestKansuji2num(unittest.TestCase):
             ('４５６，', '456'),
         ]
         for tp in test_patterns:
-            self.assertEqual(kansuji2num(tp[0]), tp[1])
+            self.assertEqual(kansuji2num(text=tp[0]), tp[1])
         return
 
-    def test_decimal(self) -> None:
+    def test_decimal(self: TestKansuji2num) -> None:
         test_patterns = [
             ('十二．三四', '12.34'),
             ('１２．３４', '12.34'),
@@ -98,10 +99,10 @@ class TestKansuji2num(unittest.TestCase):
             ('12.000,34', '12.00034'),
         ]
         for tp in test_patterns:
-            self.assertEqual(kansuji2num(tp[0]), tp[1])
+            self.assertEqual(kansuji2num(text=tp[0]), tp[1])
         return
 
-    def test_top_zero(self) -> None:
+    def test_top_zero(self: TestKansuji2num) -> None:
         test_patterns = [
             ('〇一二三', '123'),
             ('０１２３', '123'),
@@ -118,10 +119,10 @@ class TestKansuji2num(unittest.TestCase):
             ('〇京〇兆〇億〇万〇千〇百〇十一', '1'),
         ]
         for tp in test_patterns:
-            self.assertEqual(kansuji2num(tp[0]), tp[1])
+            self.assertEqual(kansuji2num(text=tp[0]), tp[1])
         return
 
-    def test_chop_dai(self) -> None:
+    def test_chop_dai(self: TestKansuji2num) -> None:
         test_patterns = [
             ('交響曲第九番', False, '交響曲第9番'),
             ('交響曲第九番', True, '交響曲9番'),
@@ -134,9 +135,9 @@ class TestKansuji2num(unittest.TestCase):
         ]
         for tp in test_patterns:
             self.assertEqual(
-                kansuji2num(tp[0], chop_dai=tp[1]), tp[2]
+                kansuji2num(text=tp[0], chop_dai=tp[1]), tp[2]
             )
 
 
 if __name__ == '__main__':
-    unittest.main()
+    main()
